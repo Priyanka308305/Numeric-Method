@@ -23,10 +23,10 @@ int main() {
         return 1;
     }
 
-    // First, count how many total iterations are needed
+    // First, count total iterations 
     double temp_a = a, temp_b = b;
     while (fabs(temp_b - temp_a) >= tol) {
-        c = (temp_a + temp_b) / 2;
+        c = (temp_a * f(temp_b) - temp_b * f(temp_a)) / (f(temp_b) - f(temp_a));
         count++;
 
         if (f(c) * f(temp_a) > 0)
@@ -35,7 +35,7 @@ int main() {
             temp_b = c;
     }
 
-    // Now do the actual process again and print only last 6 iterations
+    // Now do the actual process again and print only last n iterations
     int current = 0;
     int n;
     cout<<"how many iteration want to see, n:"<<endl;
@@ -43,7 +43,7 @@ int main() {
     cout<<endl;
     cout << "Showing only the last"<<  n <<" "<<"iterations:"<<endl;
     while (fabs(b - a) >= tol) {
-        c = (a + b) / 2;
+        c = (a * f(b) - b * f(a)) / (f(b) - f(a));
         current++;
 
         if (current > count - n) {     // if needs 20 iteration it will print 15 to  20 .
