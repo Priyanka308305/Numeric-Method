@@ -11,7 +11,7 @@ int main() {
     double a, b, c;
     double tol = 0.000001;
     int count = 0;
-    
+    const int Max_iteration = 1000;
 
     cout << "Enter a: ";
     cin >> a;
@@ -23,9 +23,9 @@ int main() {
         return 1;
     }
 
-    // First, count how many total iterations are needed
+    // First, count how many total iterations are needed (but max 1000)
     double temp_a = a, temp_b = b;
-    while (fabs(temp_b - temp_a) >= tol) {
+    while (fabs(temp_b - temp_a) >= tol && count < Max_iteration) {
         c = (temp_a + temp_b) / 2;
         count++;
 
@@ -35,18 +35,19 @@ int main() {
             temp_b = c;
     }
 
-    // Now do the actual process again and print only last 6 iterations
+    // Now do the actual process again and print only last n iterations
     int current = 0;
     int n;
-    cout<<"how many iteration want to see, n:"<<endl;
-    cin>>n;
-    cout<<endl;
-    cout << "Showing only the last"<<  n <<" "<<"iterations:"<<endl;
-    while (fabs(b - a) >= tol) {
+    cout << "How many iteration want to see, n: ";
+    cin >> n;
+    cout << endl;
+    cout << "Showing only the last " << n << " iterations:" << endl;
+
+    while (fabs(b - a) >= tol && current < count) {
         c = (a + b) / 2;
         current++;
 
-        if (current > count - n) {     // if needs 20 iteration it will print 15 to  20 .
+        if (current > count - n) {
             cout << "Iteration " << current << ": a = " << a
                  << ", b = " << b << ", c = " << c
                  << ", f(c) = " << f(c) << endl;
